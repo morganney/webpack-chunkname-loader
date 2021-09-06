@@ -27,7 +27,7 @@ const getReplacer =
     ${trimmed}
   `
     )
-    console.log(replaced)
+
     return replaced
   }
 

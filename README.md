@@ -22,6 +22,25 @@ module: {
 }
 ```
 
+You can supply an option to include `webpackMode` magic comments:
+
+```js
+module: {
+  rules: [
+    {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'webpack-chunkname-loader',
+          options: {
+            webpackMode: 'eager'
+          }
+        }
+    }
+  ]
+}
+```
+
 ### Magic Comments
 
 With `webpack-chunkname-loader` added to your webpack build, the following dynamic `import`:
