@@ -2,7 +2,7 @@
 
 Adds `webpackChunkName` [magic coments](https://webpack.js.org/api/module-methods/#magic-comments) to your dynamic import statements.
 
-If you need more magic comments or configuratioon options use [magic-comments-loaders](https://github.com/morganney/magic-comments-loader).
+If you need other magic comments or more configuration options use [magic-comments-loader](https://github.com/morganney/magic-comments-loader).
 
 ## Usage
 
@@ -43,7 +43,7 @@ module: {
 }
 ```
 
-### Magic Comments
+## Magic Comments
 
 With `webpack-chunkname-loader` added to your webpack build, the following dynamic `import`:
 
