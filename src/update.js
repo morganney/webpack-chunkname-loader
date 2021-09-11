@@ -1,32 +1,39 @@
 const dynamicImportsWithoutComments =
-  /(?<!\w|\*[\s\w]*?|\/\/\s*)import\s*\((?!\s*\/\*)(\s*?['"`].+['"`]\s*)\)/g
+  /(?<!\w|\*[\s\w]*?|\/\/\s*)import\s*\((?!\s*\/\*)(?<path>\s*?['"`].+['"`]\s*)\)/g
 const getReplacer =
-  (options = {}) =>
-  (match, p1) => {
-    let webpackMode = ''
-    const trimmed = p1.trim()
-    const parts = trimmed.split('/').filter(part => /\w/.test(part))
+  (filepath, options = {}) =>
+  (match, capturedImportPath) => {
+    const comment = []
+    const importPath = capturedImportPath.trim()
+    const parts = importPath
+      .replace(/['"`]/g, '')
+      .split('/')
+      .filter(part => /\w/.test(part))
     const name = parts.reduce((prev, curr) => {
-      const slug = curr.replace(/['"`]/g, '')
-      if (/^\${/.test(slug)) {
+      if (/^\${/.test(curr)) {
         return prev ? `${prev}-[request]` : '[request]'
       }
 
-      return prev ? `${prev}-${slug}` : slug
+      return prev ? `${prev}-${curr}` : curr
     }, '')
 
+    if (name) {
+      comment.push(`webpackChunkName: "${name.replace(/\.[cm]?j?t?sx?$/, '')}"`)
+    }
+
     if (options.webpackMode) {
-      webpackMode = `/* webpackMode: "${options.webpackMode}" */`
+      comment.push(`webpackMode: "${options.webpackMode}"`)
     }
 
     const replaced = match.replace(
-      p1,
-      `
-    /* webpackChunkName: "${name}" */
-    ${webpackMode}
-    ${trimmed}
-  `
+      capturedImportPath,
+      `/* ${comment.join(', ')} */ ${importPath}`
     )
+
+    if (options.verbose) {
+      // eslint-ignore-next-line no-console
+      console.log(`[WCNL] ${filepath} : ${replaced}`)
+    }
 
     return replaced
   }
