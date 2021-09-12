@@ -1,16 +1,61 @@
-import('react-leaflet')
-import { useEffect } from 'react'
+//import('react-leaflet')
+import { useEffect, lazy } from 'react'
 import { Redirect, Route, Router } from 'react-router-dom'
+import { Debug } from 'webpack-strip-debug-loader'
 
-/* import('./routes/BudgetRoutes') */
+import('./ignore/file')
+import('./ignore/notIgnore/not')
 
-// import('react-leaflet')
-// import('something-else')
+/* import('./this/comment/style/is/ok') */
 
-import LazyRoute from './components/LazyRoute'
+// import('react-leaflet');import('something/else/but-ok-behind-single-line-comment.js')
+// import('commented-out-module')
+
+/**
+ * Try not to have commented out `import()` statements.
+ * 
+ * If you must then single line comments are ok
+ * // import('some-commented-out-module')
+ * 
+ * If you must comment out more than one import(),
+ * then make sure each import('statement') in a line
+ * is preceded with an aterisk, otherwise boom, your
+ * build will break from the repeated import('statements').
+ */
+
+const debug = Debug('webpack-app')
+const name = "InterestProfilerRoutes"
+
+debug('being imported')
+
+const someObject = {
+  import(a, b) {
+    console.log('import', a, b)
+  }
+}
+
+someObject.import('foo/bar')
+
+const Routes = () => {
+  useEffect(() => {
+    const loadLocales = async () => {
+      const mod = await import(`./locales/${languages}`)
+    }
+    import('react-redux').then((mod) => {
+      console.log(mod)
+    })
+    loadLocales()
+
+    if (/* import('inside-if') */ true)
+    import('./someModule')
+    import('./prefetch/file')
+    import('./prefetch/sub/file.js')
+  })
 
   /**
    * import('./routes/AdminRoutes')
+   * foo();
+   * import('./ignore/these.js')
    */
 
   /*
@@ -19,86 +64,31 @@ import LazyRoute from './components/LazyRoute'
 
     with other text
       */
-
-const Routes = () => {
-  useEffect(() => {
-    const loadLocales = async () => {
-      const mod = await import(`../../locales/${languages}`)
-    }
-    import('react-redux').then((mod) => {
-      console.log(mod)
-    })
-    loadLocales()
-  })
-
   return (
     <Router history={browserHistory}>
       <Route path="/index">
         <Redirect to="/" />
       </Route>
 
-      <LazyRoute
+      <Route
         path="/admin"
-        component={() =>
-          import(/* webpackChunkName: "admin" */ './containers/admin/AdminRoutes')}
+        component={lazy(() =>
+          import(/* webpackChunkName: "admin-untouched" */ './routes/AdminRoutes'))}
       />
-      <LazyRoute
-        path="/assessments"
-        component={() =>
-          import(
-            /* webpackChunkName: "assessments" */ './containers/assessment/AssessmentListing'
-          )}
-      />
-      <LazyRoute
+      <Route
         path="/budget"
-        component={() =>
-          import('./containers/budget/BudgetRoutes')}
+        component={lazy(() =>
+          import('./routes/BudgetRoutes'))}
       />
-      <LazyRoute
-        path="/cap"
-        component={() =>
-          import('./containers/cap/CapRoutes')}
-      />
-      <LazyRoute
-        path="/clusters"
-        component={() =>
-          import(
-            /* webpackChunkName: "clusters" */ './containers/clusters/ClusterRoutes'
-          )}
-      />
-      <LazyRoute
-        path="/employers"
-        component={() =>
-          import(
-            /* webpackChunkName: "employers" */ './containers/employers/EmployerPortal'
-          )}
-      />
-      <LazyRoute
-        path="/explore"
-        component={() =>
-          import(/* webpackChunkName: "explore" */ './containers/ExploreListing')}
-      />
-      <LazyRoute
+
+      <Route
         path="/ip"
-        component={() =>
+        component={lazy(() =>
           import(
-            './containers/assessment/ip/InterestProfilerRoutes'
-          )}
-      />
-      <LazyRoute
-        path="/industry"
-        component={() =>
-          import(
-            /* webpackChunkName: "industry" */ './containers/industry/IndustryRoutes'
-          )}
-      />
-      <LazyRoute
-        path="/internal"
-        component={() =>
-          import(
-            './containers/internal/InternalRoutes'
-          )}
+            `./routes/${name}`
+          ))}
       />
     </Router>
   )
 }
+

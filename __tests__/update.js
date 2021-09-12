@@ -46,6 +46,12 @@ describe('getReplacer', () => {
     expect(simple.replace(dynamicImportsWithoutComments, replacer)).toEqual(
       `import(/* webpackChunkName: "path-to-file" */ '/path/to/file.js')`
     )
+    expect(
+      `const str = "import('foo/bar')"`.replace(dynamicImportsWithoutComments, replacer)
+    ).toEqual(`const str = "import('foo/bar')"`)
+    expect(
+      `console.log('import("foo/bar")')`.replace(dynamicImportsWithoutComments, replacer)
+    ).toEqual(`console.log('import("foo/bar")')`)
   })
 
   it('responds to options', () => {

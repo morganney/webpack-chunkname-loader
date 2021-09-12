@@ -1,4 +1,4 @@
-# webpack-chunkname-loader
+# [`webpack-chunkname-loader`](https://www.npmjs.com/package/webpack-chunkname-loader)
 
 Adds `webpackChunkName` [magic coments](https://webpack.js.org/api/module-methods/#magic-comments) to your dynamic import statements.
 
