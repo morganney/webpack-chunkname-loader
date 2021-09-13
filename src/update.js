@@ -1,5 +1,5 @@
 const dynamicImportsWithoutComments =
-  /(?<![\w.]|#!|\*[\s\w]*?|\/\/\s*|['"``]\s*)import\s*\((?!\s*\/\*)(?<path>\s*?['"`][^)]+['"`]\s*)\)(?!\s*?\*\/)/g
+  /(?<![\w.]|#!|\*[\s\w]*?|\/\/\s*|['"`][^)$]*)import\s*\((?!\s*\/\*)(?<path>\s*?['"`][^)]+['"`]\s*)\)(?!\s*?\*\/)/g
 const getReplacer =
   (filepath, options = {}) =>
   (match, capturedImportPath) => {
