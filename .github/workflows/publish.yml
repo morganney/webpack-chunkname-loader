@@ -28,6 +28,6 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Push to NPM registry
-      - uses: JS-DevTools/npm-publish@v1.0.0
+        uses: JS-DevTools/npm-publish@v1.0.0
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
