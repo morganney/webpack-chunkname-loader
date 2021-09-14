@@ -52,6 +52,12 @@ describe('getReplacer', () => {
     expect(
       `console.log('import("foo/bar")')`.replace(dynamicImportsWithoutComments, replacer)
     ).toEqual(`console.log('import("foo/bar")')`)
+    expect(
+      "import('foo/${bar}.js')".replace(dynamicImportsWithoutComments, replacer)
+    ).toEqual(`import(/* webpackChunkName: "foo-[request]" */ 'foo/\${bar}.js')`)
+    expect(
+      "import('${bar}.js')".replace(dynamicImportsWithoutComments, replacer)
+    ).toEqual(`import(/* webpackChunkName: "[request]" */ '\${bar}.js')`)
   })
 
   it('responds to options', () => {
@@ -65,5 +71,11 @@ describe('getReplacer', () => {
         '/* webpackChunkName: "path-to-file", webpackMode: "weak" */'
       )
     )
+    expect(
+      "import('.')".replace(
+        dynamicImportsWithoutComments,
+        getReplacer('some/module/path.js', { webpackMode: 'weak' })
+      )
+    ).toEqual(expect.stringContaining('/* webpackMode: "weak" */'))
   })
 })
