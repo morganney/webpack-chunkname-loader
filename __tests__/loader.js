@@ -3,17 +3,14 @@ import { jest } from '@jest/globals'
 import { loader } from '../src/loader.js'
 
 describe('loader', () => {
-  const getStub = (options = {}) => ({
+  const getStub = (options = { webpackChunkName: true, webpackMode: 'lazy' }) => ({
     utils: {
       contextify: () => './some/path.js'
     },
     callback: jest.fn((err, commentedSrc) => {
       return commentedSrc
     }),
-    query: {
-      webpackMode: 'lazy'
-    },
-    ...options
+    getOptions: jest.fn(() => options)
   })
 
   it('modifies dynamic imports in source files', async () => {
