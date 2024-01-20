@@ -1,9 +1,13 @@
 # [`webpack-chunkname-loader`](https://www.npmjs.com/package/webpack-chunkname-loader)
 
 ![CI](https://github.com/morganney/webpack-chunkname-loader/actions/workflows/ci.yml/badge.svg)
-[![codecov](https://codecov.io/gh/morganney/webpack-chunkname-loader/branch/master/graph/badge.svg?token=1DWQL43B8V)](https://codecov.io/gh/morganney/webpack-chunkname-loader)
+[![codecov](https://codecov.io/gh/morganney/webpack-chunkname-loader/branch/main/graph/badge.svg?token=1DWQL43B8V)](https://codecov.io/gh/morganney/webpack-chunkname-loader)
 
-Adds `webpackChunkName` [magic coments](https://webpack.js.org/api/module-methods/#magic-comments) to your dynamic import statements.
+> [!WARNING]
+> Uses a regex to find dynamic import expressions, your mileage may vary.
+> For parser support use `magic-comments-loader`.
+
+Adds `webpackChunkName` [magic coments](https://webpack.js.org/api/module-methods/#magic-comments) to your dynamic import expressions.
 
 If you need other magic comments or more configuration options use [magic-comments-loader](https://github.com/morganney/magic-comments-loader).
 

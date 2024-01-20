@@ -1,10 +1,8 @@
-import { getOptions } from 'loader-utils'
-
 import { getReplacer, dynamicImportsWithoutComments } from './update.js'
 
 const validModes = ['lazy', 'lazy-once', 'eager', 'weak']
 const loader = function (source, map, meta) {
-  const options = getOptions(this)
+  const options = this.getOptions()
   const filepath = this.utils
     .contextify(this.rootContext, this.resourcePath)
     .replace(/^\.\/?/, '')
