@@ -1,7 +1,7 @@
 # [`webpack-chunkname-loader`](https://www.npmjs.com/package/webpack-chunkname-loader)
 
 ![CI](https://github.com/morganney/webpack-chunkname-loader/actions/workflows/ci.yml/badge.svg)
-[![codecov](https://codecov.io/gh/morganney/webpack-chunkname-loader/branch/master/graph/badge.svg?token=1DWQL43B8V)](https://codecov.io/gh/morganney/webpack-chunkname-loader)
+[![codecov](https://codecov.io/gh/morganney/webpack-chunkname-loader/branch/main/graph/badge.svg?token=1DWQL43B8V)](https://codecov.io/gh/morganney/webpack-chunkname-loader)
 
 > [!WARNING]
 > Uses a regex to find dynamic import expressions, your mileage may vary.
